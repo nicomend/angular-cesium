@@ -1,0 +1,19 @@
+<ac-html *ngIf="entity.isSelected" [position]="entity.position">
+  <div style="background-color: yellow; color: red">
+    Html element!
+  </div>
+</ac-html>
+<ac-symbol [object]="entity">
+  <ac-point [position]="entity.position" [show]="entity.show" [color]="entity | entityStatusToColor:'cesium'"
+            [outlineColor]="entity.point.outlineColor"
+            [outlineWidth]="entity.point.outlineWidth"
+            [pixelSize]="entity.point.pixelSize"></ac-point>
+  <ac-label [position]="entity.position" [show]="entity.show" [text]="entity.label1.text" [font]="entity.label1.font"
+            [fillColor]="entity.label1.fillColor"
+            [style]="entity.label1.style" [outlineColor]="entity.label1.outlineColor"
+            [outlineWidth]="entity.label1.outlineWidth" [pixelOffset]="entity.label1.pixelOffset"></ac-label>
+  <ac-label [position]="entity.position" [show]="entity.show" [text]="entity.label2.text" [font]="entity.label2.font"
+            [fillColor]="entity.label2.fillColor"
+            [style]="entity.label2.style" [outlineColor]="entity.label2.outlineColor"
+            [outlineWidth]="entity.label2.outlineWidth" [pixelOffset]="entity.label2.pixelOffset"></ac-label>
+</ac-symbol>

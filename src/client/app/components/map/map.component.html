@@ -1,0 +1,4 @@
+<ac-map (leftClick)="leftClick($event)" (ctrlLeftClick)="ctrlLeftClick($event)" (mouseMove)="mouseMove($event)">
+  <ac-wms-imagery-provider *ngIf="showWms" [url]="'http://sedac.ciesin.columbia.edu/geoserver/wms'" [layers]="'gpw-v3:gpw-v3-population-density_2000'"></ac-wms-imagery-provider>
+  <entity-map *ngFor="let entity of entities | async" [entity]="entity"></entity-map>
+</ac-map>

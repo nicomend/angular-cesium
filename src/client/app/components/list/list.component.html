@@ -1,0 +1,12 @@
+<div>
+  Entities count: {{(entities | async).count}}
+</div>
+<div>
+  Selected Entities count: {{(entities | async).selected.length}}
+</div>
+<div *ngFor="let entity of (entities | async).selected" [style.backgroundColor]="entity | entityStatusToColor:'css'"
+     (click)="entityClick(entity)" (mouseover)="entityHover(entity)" (mouseout)="removeHover()">
+  {{entity.label1.text}} -
+  {{entity.label2.text}} -
+  {{entity.position}}
+</div>

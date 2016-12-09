@@ -1,0 +1,19 @@
+.flex-fill {
+  flex: 1;
+}
+.flex-container {
+  display: flex;
+}
+
+:host {
+  @extend .flex-fill;
+  @extend .flex-container;
+}
+
+map {
+  flex: 3;
+}
+
+list {
+  @extend .flex-fill;
+}
