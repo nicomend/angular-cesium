@@ -1,4 +1,9 @@
 # angular2-cesium
 Angular cesium
 
-https://angular2-cesium.firebaseapp.com
+Live example: https://angular2-cesium.firebaseapp.com
+
+# Getting started
+* ac-map
+* ac-billboard
+
