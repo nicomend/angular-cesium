@@ -18,16 +18,16 @@ function entitiesInitialState() {
       show: true,
       point: {
         pixelSize: 20.0,
-        color: Cesium.Color.WHITE,
-        outlineColor: Cesium.Color.TRANSPARENT,
+        // color: Cesium.Color.WHITE,
+        // outlineColor: Cesium.Color.TRANSPARENT,
         outlineWidth: 0.0
       },
       label1: {
         text: 'Label1',
         font: '14px Helvetica',
         pixelOffset: new Cesium.Cartesian2(5, 0),
-        fillColor: Cesium.Color.SKYBLUE,
-        outlineColor: Cesium.Color.BLACK,
+        // fillColor: Cesium.Color.SKYBLUE,
+        // outlineColor: Cesium.Color.BLACK,
         outlineWidth: 2,
         style: Cesium.LabelStyle.FILL_AND_OUTLINE
       },
@@ -35,8 +35,8 @@ function entitiesInitialState() {
         text: 'Label2',
         font: '14px Helvetica',
         pixelOffset: new Cesium.Cartesian2(5, 15),
-        fillColor: Cesium.Color.SKYBLUE,
-        outlineColor: Cesium.Color.BLACK,
+        // fillColor: Cesium.Color.SKYBLUE,
+        // outlineColor: Cesium.Color.BLACK,
         outlineWidth: 2,
         style: Cesium.LabelStyle.FILL_AND_OUTLINE
       }

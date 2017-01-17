@@ -1,6 +1,7 @@
-import {join} from 'path';
+import { join } from 'path';
 
-import {SeedConfig, ENVIRONMENTS} from './seed.config';
+import {SeedConfig, BUILD_TYPES} from './seed.config';
+// import { ExtendPackages } from './seed.config.interfaces';
 
 /**
  * This class extends the basic seed configuration, allowing for project specific overrides. A few examples can be found
@@ -21,14 +22,9 @@ export class ProjectConfig extends SeedConfig {
     /* Enable typeless compiler runs (faster) between typed compiler runs. */
     // this.TYPED_COMPILE_INTERVAL = 5;
 
-    this.SYSTEM_CONFIG_DEV.packageConfigPaths = [
-      ...this.SYSTEM_CONFIG_DEV.packageConfigPaths,
-      `/node_modules/@ngrx/*/package.json`
-    ];
-
     this.SYSTEM_BUILDER_CONFIG.packageConfigPaths = [
       ...this.SYSTEM_BUILDER_CONFIG.packageConfigPaths,
-      (join('node_modules', '@ngrx', '*', 'package.json'))
+      join('node_modules', '@ngrx', '*', 'package.json')
     ];
 
     this.SYSTEM_BUILDER_CONFIG.packages['@ngrx/core'] = {
@@ -54,8 +50,9 @@ export class ProjectConfig extends SeedConfig {
     // Add `NPM` third-party libraries to be injected/bundled.
     this.NPM_DEPENDENCIES = [
       ...this.NPM_DEPENDENCIES,
-      {src: 'cesium/Build/Cesium/Cesium.js', inject: 'libs', env: ENVIRONMENTS.DEVELOPMENT},
-      {src: 'cesium/Build/Cesium/Widgets/widgets.css', inject: true, env: ENVIRONMENTS.DEVELOPMENT},
+      {src: 'cesium/Build/Cesium/Cesium.js', inject: 'libs', env: BUILD_TYPES.DEVELOPMENT},
+      {src: 'cesium/Build/Cesium/Widgets/widgets.css', inject: true, env: BUILD_TYPES.DEVELOPMENT},
+      // {src: 'jquery/dist/jquery.min.js', inject: 'libs'},
       // {src: 'lodash/lodash.min.js', inject: 'libs'},
     ];
 
@@ -65,6 +62,15 @@ export class ProjectConfig extends SeedConfig {
       // {src: `${this.APP_SRC}/your-path-to-lib/libs/jquery-ui.js`, inject: true, vendor: false}
       // {src: `${this.CSS_SRC}/path-to-lib/test-lib.css`, inject: true, vendor: false},
     ];
+
+    // Add packages (e.g. ng2-translate)
+    // let additionalPackages: ExtendPackages[] = [{
+    //   name: 'ng2-translate',
+    //   // Path to the package's bundle
+    //   path: 'node_modules/ng2-translate/bundles/ng2-translate.umd.js'
+    // }];
+    //
+    // this.addPackagesBundles(additionalPackages);
 
     /* Add to or override NPM module configurations: */
     // this.mergeObject(this.PLUGIN_CONFIGS['browser-sync'], { ghostMode: false });

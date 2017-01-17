@@ -1,10 +1,10 @@
 import * as gulp from 'gulp';
 import * as gulpLoadPlugins from 'gulp-load-plugins';
-import {join, sep, normalize} from 'path';
+import { join, sep, normalize } from 'path';
 import * as slash from 'slash';
 
 import Config from '../../config';
-import {templateLocals} from '../../utils';
+import { TemplateLocalsBuilder } from '../../utils';
 
 const plugins = <any>gulpLoadPlugins();
 
@@ -16,7 +16,7 @@ export = () => {
   return gulp.src(join(Config.APP_SRC, 'index.html'))
     .pipe(injectJs())
     .pipe(injectCss())
-    .pipe(plugins.template(templateLocals()))
+    .pipe(plugins.template(new TemplateLocalsBuilder().wihtoutStringifiedEnvConfig().build()))
     .pipe(gulp.dest(Config.APP_DEST));
 };
 
@@ -25,24 +25,24 @@ export = () => {
  * @param {Array<string>} files - The files to be injected.
  */
 function inject(...files: Array<string>) {
-  return plugins.inject(gulp.src(files, {read: false}), {
-    files,
-    transform: transformPath()
-  });
+    return plugins.inject(gulp.src(files, { read: false }), {
+        files,
+        transform: transformPath()
+    });
 }
 
 /**
  * Injects the bundled JavaScript shims and application bundles for the production environment.
  */
 function injectJs() {
-  return inject(join(Config.JS_DEST, Config.CESIUM_JS_PROD), join(Config.JS_DEST, Config.JS_PROD_SHIMS_BUNDLE), join(Config.JS_DEST, Config.JS_PROD_APP_BUNDLE));
+  return inject(join(Config.JS_DEST, Config.JS_PROD_SHIMS_BUNDLE), join(Config.JS_DEST, Config.JS_PROD_APP_BUNDLE));
 }
 
 /**
  * Injects the bundled CSS files for the production environment.
  */
 function injectCss() {
-  return inject(join(Config.JS_DEST, Config.CESIUM_CSS_PROD), join(Config.CSS_DEST, Config.CSS_PROD_BUNDLE));
+  return inject(join(Config.CSS_DEST, Config.CSS_PROD_BUNDLE));
 }
 
 /**
@@ -50,7 +50,7 @@ function injectCss() {
  * environment.
  */
 function transformPath() {
-  return function (filepath: string) {
+  return function(filepath: string) {
     let path: Array<string> = normalize(filepath).split(sep);
     let slice_after = path.indexOf(Config.APP_DEST);
     if (slice_after > -1) {

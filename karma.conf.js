@@ -3,6 +3,8 @@
 'use strict';
 
 var argv = require('yargs').argv;
+var minimatch = require("minimatch");
+
 
 module.exports = function (config) {
   config.set({
@@ -18,11 +20,9 @@ module.exports = function (config) {
 
     // list of files / patterns to load in the browser
     files: [
-      // Cesium
-      'node_modules/cesium/Build/Cesium/Cesium.js',
-
       // Polyfills.
       'node_modules/core-js/client/shim.min.js',
+      'node_modules/intl/dist/Intl.min.js',
 
       'node_modules/traceur/bin/traceur.js',
 
@@ -117,7 +117,7 @@ module.exports = function (config) {
 
     // Passing command line arguments to tests
     client: {
-      files: argv.files
+      files:  argv.files ? minimatch.makeRe(argv.files).source : null
     }
   });
 
