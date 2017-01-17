@@ -33,6 +33,7 @@ export abstract class AbstractMapComponent extends AfterMapInit implements OnIni
   }
 
   ngOnDestroy(): void {
+    console.log('destroy');
     this.drawer.deleteObject(this.cesiumObject, this.entity);
   }
 

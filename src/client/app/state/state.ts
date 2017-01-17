@@ -10,7 +10,7 @@ export interface AppState {
   selectedEntities: any[];
 }
 
-function entitiesInitialState() {
+export function entitiesInitialState() {
   let entities: any[] = [];
   for (let i = 0; i < 500; i++) {
     entities.push({

@@ -8,4 +8,8 @@ import {EntityStatusToColorPipe} from "../../pipes/entity-status-to-color.pipe";
 })
 export class EntityMapComponent{
   @Input() entity: any;
+
+  constructor(){
+console.log('cool');
+  }
 }

@@ -366,6 +366,7 @@ export class SeedConfig {
       '@ngrx/core': 'node_modules/@ngrx/core/bundles/core.umd.js',
       '@ngrx/store-devtools': 'node_modules/@ngrx/store-devtools/bundles/store-devtools.umd.js',
       '@ngrx/store-log-monitor': 'node_modules/@ngrx/store-log-monitor/bundles/store-log-monitor.umd.js',
+      'rxjs': 'node_modules/rxjs/Rx.js',
 
       '@angular/common/testing': 'node_modules/@angular/common/bundles/common-testing.umd.js',
       '@angular/compiler/testing': 'node_modules/@angular/compiler/bundles/compiler-testing.umd.js',

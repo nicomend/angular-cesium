@@ -1,6 +1,7 @@
 import {Action} from "@ngrx/store";
 import {updateImmutable} from "./reducres";
 
+export const RANDOM_POSITIONS: string = 'CHANGE_POSITION';
 export const SELECT_ENTITY: string = 'SELECT_ENTITY';
 export const DESELECT_ENTITY: string = 'DESELECT_ENTITY';
 export const ADD_ENTITY_TO_SELECTION: string = 'ADD_ENTITY_TO_SELECTION';
@@ -12,6 +13,8 @@ export class EntitiesReducer {
 
   static reducer(state: any[], action: Action): any[] {
     switch (action.type) {
+      case RANDOM_POSITIONS:
+        return EntitiesReducer.randomPositions(state);
       case SELECT_ENTITY:
         return EntitiesReducer.selectEntity(state, action);
       case DESELECT_ENTITY:
@@ -30,7 +33,7 @@ export class EntitiesReducer {
   }
 
   private static deselectEntity(state: any[]): any[] {
-    return state.map((entity: any)=> {
+    return state.map((entity: any) => {
       if (entity.isSelected) {
         return updateImmutable(entity, {
           isSelected: false
@@ -42,7 +45,7 @@ export class EntitiesReducer {
   };
 
   private static selectEntity(state: any[], action: Action) {
-    return state.map((entity: any)=> {
+    return state.map((entity: any) => {
       if (entity === action.payload) {
         return updateImmutable(entity, {
           isSelected: true
@@ -58,7 +61,7 @@ export class EntitiesReducer {
   }
 
   private static addEntityToSelection(state: any[], action: Action) {
-    return state.map((entity: any)=> {
+    return state.map((entity: any) => {
       if (entity === action.payload) {
         return updateImmutable(entity, {
           isSelected: true
@@ -70,7 +73,7 @@ export class EntitiesReducer {
   }
 
   private static removeEntityFromSelection(state: any[], action: Action) {
-    return state.map((entity: any)=> {
+    return state.map((entity: any) => {
       if (entity === action.payload) {
         return updateImmutable(entity, {
           isSelected: false
@@ -82,7 +85,7 @@ export class EntitiesReducer {
   }
 
   private static hoverOnEntity(state: any[], action: Action) {
-    return state.map((entity: any)=> {
+    return state.map((entity: any) => {
       if (entity === action.payload) {
         return updateImmutable(entity, {
           isHovered: true
@@ -98,7 +101,7 @@ export class EntitiesReducer {
   }
 
   private static removeHover(state: any[]) {
-    return state.map((entity: any)=> {
+    return state.map((entity: any) => {
       if (entity.isHovered) {
         return updateImmutable(entity, {
           isHovered: false
@@ -106,6 +109,14 @@ export class EntitiesReducer {
       }
 
       return entity;
+    });
+  }
+
+  private static randomPositions(state: any[]) {
+    return state.map((entity:any)=>{
+      return updateImmutable(entity, {
+        position: Cesium.Cartesian3.fromDegrees(((Math.random() * 1000) + 1), ((Math.random() * 1000) + 1))
+      })
     });
   }
 }

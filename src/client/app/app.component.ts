@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {DataService} from "./services/data/data.service";
 import {EntityStatusToColorPipe} from "./pipes/entity-status-to-color.pipe";
+import {entitiesInitialState} from "./state/state";
+import {BehaviorSubject, Observable} from "rxjs";
 declare var Cesium: any;
 
 /**
@@ -16,4 +18,17 @@ declare var Cesium: any;
 })
 
 export class AppComponent {
+  subject: BehaviorSubject<any>;
+
+  constructor() {
+    let entities = entitiesInitialState();
+    this.subject = new BehaviorSubject(entities);
+    Observable.interval(500).subscribe(() => {
+      entities = entities.map((entity)=>{
+        entity.position = Cesium.Cartesian3.fromDegrees(((Math.random() * 1000) + 1), ((Math.random() * 1000) + 1));
+        return entity;
+      });
+      this.subject.next(entities);
+    });
+  }
 }
