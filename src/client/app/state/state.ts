@@ -14,7 +14,7 @@ export function entitiesInitialState() {
   let entities: any[] = [];
   for (let i = 0; i < 500; i++) {
     entities.push({
-      position: Cesium.Cartesian3.fromDegrees(((Math.random() * 1000) + 1), ((Math.random() * 1000) + 1)),
+      position: {lat: ((Math.random() * 1000) + 1), long: ((Math.random() * 1000) + 1)},
       show: true,
       point: {
         pixelSize: 20.0,

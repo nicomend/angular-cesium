@@ -25,7 +25,7 @@ export class AppComponent {
     this.subject = new BehaviorSubject(entities);
     Observable.interval(500).subscribe(() => {
       entities = entities.map((entity)=>{
-        entity.position = Cesium.Cartesian3.fromDegrees(((Math.random() * 1000) + 1), ((Math.random() * 1000) + 1));
+        entity.position = {lat: entity.position.lat+0.4, long: entity.position.long + 0.4};
         return entity;
       });
       this.subject.next(entities);

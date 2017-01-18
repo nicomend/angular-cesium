@@ -10,6 +10,5 @@ export class EntityMapComponent{
   @Input() entity: any;
 
   constructor(){
-console.log('cool');
   }
 }

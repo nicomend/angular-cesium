@@ -10,6 +10,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import {EntityStatusToColorPipe} from "./pipes/entity-status-to-color.pipe";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {StoreLogMonitorModule, useLogMonitor} from "@ngrx/store-log-monitor";
+import {ToCartesian3Pipe} from "./pipes/to-cartesian3";
 
 @NgModule({
   imports: [BrowserModule, AngularCesiumModule, HttpModule,
@@ -22,7 +23,7 @@ import {StoreLogMonitorModule, useLogMonitor} from "@ngrx/store-log-monitor";
       })
     }),
     StoreLogMonitorModule],
-  declarations: [...COMPONENTS, EntityStatusToColorPipe],
+  declarations: [...COMPONENTS, EntityStatusToColorPipe, ToCartesian3Pipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {
