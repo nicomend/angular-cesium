@@ -16,19 +16,11 @@ import {RANDOM_POSITIONS} from "../../reducers/entities.reducer";
   styleUrls: ['map.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MapComponent implements OnInit, OnChanges {
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log('changessss');
-  }
+export class MapComponent implements OnInit {
   @Input() entities: any[];
   showWms: boolean;
 
   constructor(private dataService: DataService, private store: Store<AppState>) {
-    // this.entities = store.select((state: AppState) => state.entities);
-    //
-    // Observable.interval(500).subscribe(() => {
-    //   store.dispatch({type: RANDOM_POSITIONS});
-    // });
   }
 
   ngOnInit(): void {

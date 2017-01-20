@@ -14,6 +14,10 @@ map {
   flex: 3;
 }
 
+#cesiumContainer {
+  flex: 3;
+}
+
 list {
   @extend .flex-fill;
 }

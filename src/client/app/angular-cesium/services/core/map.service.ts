@@ -1,4 +1,4 @@
-import {EventEmitter} from "@angular/core";
+import {EventEmitter, NgZone} from "@angular/core";
 import {Injectable} from "@angular/core";
 
 @Injectable()
@@ -7,12 +7,12 @@ export class MapService {
   private map: any;
   private handler: any;
 
-  constructor() {
+  constructor(private ngZone: NgZone) {
     this.mapInitEmitter = new EventEmitter();
   }
 
   getMap(): Promise<any> {
-    return new Promise<any>((resolve)=> {
+    return new Promise<any>((resolve) => {
       if (!this.map) {
         this.mapInitEmitter.subscribe(resolve);
       } else {
@@ -23,7 +23,7 @@ export class MapService {
 
   registerEvent(eventEmitter: EventEmitter<MapEventData>, cesiumEventType: number, modifier?: any) {
 
-    this.handler.setInputAction((cesiumEventData: any)=> {
+    this.handler.setInputAction((cesiumEventData: any) => {
       switch (cesiumEventType) {
         case Cesium.ScreenSpaceEventType.MOUSE_MOVE:
           this._handleMouseMove(cesiumEventData, eventEmitter);
@@ -70,7 +70,9 @@ export class MapService {
   }
 
   addCollection(collection: any) {
-    this.map.scene.primitives.add(collection);
+    this.ngZone.runOutsideAngular(() => {
+      this.map.scene.primitives.add(collection);
+    });
   }
 }
 

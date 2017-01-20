@@ -1,4 +1,25 @@
+<div>
+  <div>
+    <button (click)="draw()">
+      <span *ngIf="!drawing">Draw!</span>
+      <span *ngIf="drawing">Stop!</span>
+    </button>
+  </div>
+  <div>
+    drawing: {{drawing}}
+  </div>
+  <div>
+    entities count: {{entities.length}}
+  </div>
+  <div>
+    update positions: {{update}}
+  </div>
+  <div>
+    (update rate 1sec)
+  </div>
+</div>
 <map [entities]="subject | async"></map>
+<!--<div id="cesiumContainer"></div>-->
 <!--<map [entities]="subject | async"></map>-->
 <!--<map></map>-->
 <!--<list></list>-->

@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import {Injectable, NgZone} from "@angular/core";
 import {MapService} from "../../core/map.service";
 import {Drawer} from "../../core/drawer";
 import {CesiumEntityHolder} from "../../entity.service";

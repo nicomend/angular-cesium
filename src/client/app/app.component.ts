@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, AfterViewInit} from '@angular/core';
 import {DataService} from "./services/data/data.service";
 import {EntityStatusToColorPipe} from "./pipes/entity-status-to-color.pipe";
-import {entitiesInitialState} from "./state/state";
-import {BehaviorSubject, Observable} from "rxjs";
+import {entitiesInitialState, buildEntity} from "./state/state";
+import {BehaviorSubject, Observable, Subscription} from "rxjs";
 declare var Cesium: any;
 
 /**
@@ -16,19 +16,49 @@ declare var Cesium: any;
   styleUrls: ['app.component.css'],
   providers: [DataService]
 })
-
 export class AppComponent {
   subject: BehaviorSubject<any>;
+  drawing: boolean;
+  entities: any[];
+  update: boolean;
+  private subscription: Subscription;
 
   constructor() {
-    let entities = entitiesInitialState();
-    this.subject = new BehaviorSubject(entities);
-    Observable.interval(500).subscribe(() => {
-      entities = entities.map((entity)=>{
-        entity.position = {lat: entity.position.lat+0.4, long: entity.position.long + 0.4};
-        return entity;
+    this.drawing = false;
+    this.update = false;
+    this.entities = [];
+    this.subject = new BehaviorSubject([]);
+  }
+
+  draw() {
+    if (this.drawing) {
+      this.subscription.unsubscribe();
+      this.drawing = false;
+      this.update = true;
+      this.subscription = Observable.interval(1000).subscribe(() => {
+        this.entities = this.entities.map((entity) => {
+          entity.position = {lat: entity.position.lat + 0.4, long: entity.position.long + 0.4};
+          return entity;
+        });
+        this.subject.next(this.entities);
       });
-      this.subject.next(entities);
-    });
+    } else {
+      if (this.subscription) {
+        this.subscription.unsubscribe();
+        this.update = false;
+      }
+      this.entities = [];
+      this.subject.next(this.entities);
+      this.drawing = true;
+      const batchCount = 1000;
+      this.subscription = Observable.interval(500).subscribe(() => {
+          for (let i = 0; i < batchCount; i++) {
+            this.entities = [...this.entities, buildEntity()];
+            this.subject.next(this.entities);
+          }
+        }
+      )
+    }
+
   }
 }
